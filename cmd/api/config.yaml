@@ -1,6 +1,9 @@
 app:
   name: ecommerce-ddd-architecture
   port: ":4000"
+  encryption:
+    salt: 10
+    jwt_secret: iniAdalahJWTSecret
 
 db:
   host: localhost

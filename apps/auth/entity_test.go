@@ -1,10 +1,12 @@
 package auth
 
 import (
+	"log"
 	"testing"
 
 	"github.com/mhmdiamd/go-ecommerce-ddd-architecture/infra/response"
 	"github.com/stretchr/testify/require"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func TestValidateAuthEntity(t *testing.T) {
@@ -66,6 +68,20 @@ func TestValidateAuthEntity(t *testing.T) {
     require.NotNil(t, err)
     require.Equal(t, response.ErrPasswordInvalidLength, err)
   }) 
+}
+
+func TestEncryptPassword(t *testing.T) {
+  t.Run("Success", func(t *testing.T) {
+    authEntity := AuthEntity {
+      Email : "am@gmail.com",
+      Password: "123456",
+    }
+
+    err := authEntity.EncryptPassword(bcrypt.DefaultCost)
+    require.Nil(t, err)
+
+    log.Printf("%+v\n", authEntity)
+  })
 }
 
 

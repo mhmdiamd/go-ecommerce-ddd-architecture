@@ -1,5 +1,7 @@
 package helper
 
 func PanicIfError(err error) {
-  panic(err)
+  if err != nil {
+    panic(err)
+  }
 }
