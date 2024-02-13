@@ -5,6 +5,7 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/mhmdiamd/go-ecommerce-ddd-architecture/apps/auth"
+	"github.com/mhmdiamd/go-ecommerce-ddd-architecture/apps/product"
 	"github.com/mhmdiamd/go-ecommerce-ddd-architecture/external/database"
 	"github.com/mhmdiamd/go-ecommerce-ddd-architecture/internal/config"
 )
@@ -31,6 +32,7 @@ func main() {
   })
 
   auth.Init(router, db)
+  product.Init(router, db)
 
   router.Listen(config.Cfg.App.Port)
 
