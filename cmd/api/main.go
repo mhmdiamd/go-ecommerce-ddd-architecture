@@ -8,6 +8,7 @@ import (
 	"github.com/mhmdiamd/go-ecommerce-ddd-architecture/apps/product"
 	"github.com/mhmdiamd/go-ecommerce-ddd-architecture/apps/transaction"
 	"github.com/mhmdiamd/go-ecommerce-ddd-architecture/external/database"
+	infrafiber "github.com/mhmdiamd/go-ecommerce-ddd-architecture/infra/fiber"
 	"github.com/mhmdiamd/go-ecommerce-ddd-architecture/internal/config"
 )
 
@@ -31,6 +32,8 @@ func main() {
     Prefork: true,
     AppName: config.Cfg.App.Name,
   })
+
+  router.Use(infrafiber.Trace())
 
   auth.Init(router, db)
   product.Init(router, db)

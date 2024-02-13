@@ -26,6 +26,7 @@ func (s service) CreateProduct(ctx context.Context, req CreateProductRequestPayl
   productEntity := NewProductFromCreateProductRequest(req)
 
   if err = productEntity.Validate(); err != nil {
+    // log.Log.Errorf(ctx, "[Create Product, Validate] with error detail %v", err.Error())
     return 
   }
 

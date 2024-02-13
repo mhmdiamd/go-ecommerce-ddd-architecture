@@ -15,7 +15,7 @@ type TransactionHistoryResponse struct {
   PlatformFee uint `json:"platform_fee"`
   GrandTotal uint `json:"grand_total"`
   Status TransactionStatus `json:"status"`
-  ProductJSON json.RawMessage `json:"product_snapshot"`
+  ProductJSON json.RawMessage `json:"-"`
   CreatedAt time.Time `json:"created_at"`
   UpdatedAt time.Time `json:"updated_at"`
 

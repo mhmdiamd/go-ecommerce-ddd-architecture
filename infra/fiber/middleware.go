@@ -1,6 +1,7 @@
 package infrafiber
 
 import (
+	"fmt"
 	"log"
 	"strings"
 
@@ -9,6 +10,22 @@ import (
 	"github.com/mhmdiamd/go-ecommerce-ddd-architecture/internal/config"
 	"github.com/mhmdiamd/go-ecommerce-ddd-architecture/utility"
 )
+
+func Trace() fiber.Handler {
+  return func(c *fiber.Ctx) error {
+    // ctx := c.UserContext()   
+
+    // Get Request
+    // logger.Log.Infof(ctx, "incoming request")
+    
+    err := c.Next()
+  
+    // Finish request
+    // logger.Log.Infof(ctx, "incoming request")
+
+    return err
+  }
+}
 
 func CheckAuth() fiber.Handler {
   return func (c *fiber.Ctx) error {
@@ -32,7 +49,6 @@ func CheckAuth() fiber.Handler {
 
     publicId, role, err := utility.ValidateToken(token, config.Cfg.App.Encryption.JWTSecret)
     if err != nil {
-      log.Println(err.Error())
       return NewResponse(
         WithError(response.ErrorUnauthorized),
       ).Send(c)
@@ -44,3 +60,36 @@ func CheckAuth() fiber.Handler {
     return c.Next()
   }
 }
+
+func CheckRoles(authorizedRoles []string) fiber.Handler {
+  return func(c *fiber.Ctx) error {
+
+    role := fmt.Sprintf("%v", c.Locals("ROLE"))
+
+    isExists := false
+    for _, authorizedRole := range authorizedRoles {
+      if role == authorizedRole {
+        isExists = true
+        break
+      }
+    } 
+
+    if !isExists {
+      return NewResponse(
+        WithError(response.ErrorForbiddenAccess),
+      ).Send(c)
+    }
+
+    return c.Next()
+  }
+}
+
+
+
+
+
+
+
+
+
+

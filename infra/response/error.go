@@ -8,6 +8,7 @@ import (
 var (
   ErrNotFound = errors.New("not found")
   ErrUnauthorized = errors.New("unauthorized")
+  ErrForbiddenAccess = errors.New("forbidden access")
 )
 
 var (
@@ -57,6 +58,7 @@ var (
   ErrorBadRequest = NewError("bad request", "40000", http.StatusBadRequest)
   ErrorNotFound = NewError(ErrNotFound.Error(), "40401", http.StatusNotFound)
   ErrorUnauthorized = NewError(ErrUnauthorized.Error(), "40100", http.StatusUnauthorized)
+  ErrorForbiddenAccess = NewError(ErrForbiddenAccess.Error(), "40100", http.StatusForbidden)
 )
 
 var (
@@ -86,6 +88,7 @@ var (
   ErrorMapping = map[string]Error {
     ErrorNotFound.Error() : ErrorNotFound,
     ErrorUnauthorized.Error() : ErrorUnauthorized,
+    ErrorForbiddenAccess.Error() : ErrorForbiddenAccess,
 
     ErrorEmailRequired.Error() : ErrorEmailRequired,
     ErrorEmailInvalid.Error() : ErrorEmailInvalid,    
@@ -106,7 +109,6 @@ var (
     // Transaction
     ErrorAmountInvalid.Error() : ErrorAmountInvalid,
     ErrorAmountGreaterThanStock.Error() : ErrorAmountGreaterThanStock,
-
   }
 )
 

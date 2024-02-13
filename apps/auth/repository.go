@@ -42,7 +42,7 @@ func (r repository) CreateAuth(ctx context.Context, model AuthEntity) (err error
 func (r repository) GetAuthByEmail(ctx context.Context, email string) (model AuthEntity, err error) {
   query := `
     SELECT 
-      id, email, password, created_at, updated_at, public_id
+      id, email, password, role, created_at, updated_at, public_id
     FROM auth
     Where email=$1
   `

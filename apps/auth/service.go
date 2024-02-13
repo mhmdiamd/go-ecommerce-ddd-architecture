@@ -70,7 +70,7 @@ func (s service) login(ctx context.Context, req LoginRequestPayload) (token stri
     return 
   }
  
-  token, err = authEntity.GenerateToken(config.Cfg.App.Encryption.JWTSecret)
+  token, err = model.GenerateToken(config.Cfg.App.Encryption.JWTSecret)
 
   return
 }

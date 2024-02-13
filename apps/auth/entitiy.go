@@ -108,7 +108,7 @@ func (a AuthEntity) VerifyPasswordFromPlain(encrypted string) (err error) {
 }
 
 func (a AuthEntity) GenerateToken(secret string) (tokenString string, err error) {
- return utility.GenerateToken(a.PublicId.String(), string(a.Role), secret)
+  return utility.GenerateToken(a.PublicId.String(), string(a.Role), secret)
 }
 
 
