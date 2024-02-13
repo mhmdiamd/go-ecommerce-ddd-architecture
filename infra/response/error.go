@@ -7,6 +7,7 @@ import (
 
 var (
   ErrNotFound = errors.New("not found")
+  ErrUnauthorized = errors.New("unauthorized")
 )
 
 var (
@@ -55,6 +56,7 @@ var (
   ErrorGeneral = NewError("internal server error", "99999", http.StatusInternalServerError)
   ErrorBadRequest = NewError("bad request", "40000", http.StatusBadRequest)
   ErrorNotFound = NewError(ErrNotFound.Error(), "40401", http.StatusNotFound)
+  ErrorUnauthorized = NewError(ErrUnauthorized.Error(), "40100", http.StatusUnauthorized)
 )
 
 var (
@@ -83,6 +85,8 @@ var (
 var (
   ErrorMapping = map[string]Error {
     ErrorNotFound.Error() : ErrorNotFound,
+    ErrorUnauthorized.Error() : ErrorUnauthorized,
+
     ErrorEmailRequired.Error() : ErrorEmailRequired,
     ErrorEmailInvalid.Error() : ErrorEmailInvalid,    
     ErrorPasswordRequired.Error() : ErrorPasswordRequired,

@@ -32,6 +32,30 @@ func (r repository) Rollback(ctx context.Context, tx *sqlx.Tx) (err error) {
   return tx.Rollback()
 }
 
+func(r repository) GetTransactionsByUserPublicId(ctx context.Context, userPublcId string) (trxs []Transaction, err error){
+
+  query := `
+    SELECT 
+      id, user_public_id, product_id, product_price
+      , amount, sub_total, platform_fee
+      , grand_total, status, product_snapshot
+      , created_at, updated_at
+    FROM transactions
+    WHERE user_public_id=$1
+  `
+
+  err = r.db.SelectContext(ctx, &trxs, query, userPublcId)
+  if err != nil {
+    if err == sql.ErrNoRows {
+      err = response.ErrorNotFound
+      return
+    }
+    return 
+  }
+
+  return
+}
+
 func (r repository) CreateTransactionWithTx(ctx context.Context, tx *sqlx.Tx, trx Transaction) (err error) {
   query := `
     INSERT INTO transactions (

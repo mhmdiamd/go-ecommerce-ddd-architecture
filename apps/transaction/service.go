@@ -2,6 +2,7 @@ package transaction
 
 import (
 	"context"
+	"database/sql"
 
 	"github.com/jmoiron/sqlx"
 	"github.com/mhmdiamd/go-ecommerce-ddd-architecture/infra/response"
@@ -21,6 +22,7 @@ type TransactionDBRepository interface {
 
 type TransactionRepository interface {
   CreateTransactionWithTx(ctx context.Context, tx *sqlx.Tx, trx Transaction) (err error)
+  GetTransactionsByUserPublicId(ctx context.Context, userPublicId string) (trxs []Transaction, err error)
 }
 
 type ProductRepository interface {
@@ -93,5 +95,23 @@ func (s service) CreateTransaction(ctx context.Context, req CreateTransactionReq
   }
 
   return
+}
 
+func (s service) TransactionHistories(ctx context.Context, userPublicId string) (trxs []Transaction, err error){
+  trxs, err = s.repo.GetTransactionsByUserPublicId(ctx, userPublicId)
+  if err != nil {
+    if err == sql.ErrNoRows {
+      trxs = []Transaction{}
+      return trxs, nil
+    }
+
+    return
+  }
+
+  if len(trxs) == 0 {
+    trxs = []Transaction{}
+    return trxs, nil
+  }
+  
+  return
 }

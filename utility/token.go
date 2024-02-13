@@ -43,6 +43,8 @@ func ValidateToken(tokenString string, secret string) (id string, role string, e
     return 
   }
 
+  fmt.Println(claims["id"])
+
   err = fmt.Errorf("unable to extract claims")
 
   return 

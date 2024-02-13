@@ -34,14 +34,14 @@ func WithHttpCode(httpCode int) func (*Response) *Response {
   }
 }
 
-func WithMessage(message string)func (*Response) *Response {
+func WithMessage(message string) func (*Response) *Response {
   return func(r *Response) *Response {
     r.Message = message
     return r
   }
 }
 
-func WithPayload(payload interface{})func (*Response) *Response {
+func WithPayload(payload interface{}) func (*Response) *Response {
   return func(r *Response) *Response {
     r.Payload = payload 
     return r

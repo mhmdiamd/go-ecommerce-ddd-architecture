@@ -141,6 +141,36 @@ func (t Transaction) GetStatus() string {
   return status
 }
 
+func (t Transaction) ToTransactionHistoryResponse() TransactionHistoryResponse {
+  product, err := t.GetProduct()
+  if err != nil {
+    product = Product{}
+  }
+
+  return TransactionHistoryResponse{
+    Id : t.Id,
+    UserPublicId : t.UserPublicId,
+    ProductId : t.ProductId,
+    ProductPrice: t.ProductPrice,
+    Amount: t.Amount,
+    SubTotal: t.SubTotal,
+    PlatformFee: t.PlatformFee,
+    GrandTotal: t.GrandTotal,
+    Status: t.Status,
+    CreatedAt: t.CreatedAt,
+    UpdatedAt: t.UpdatedAt,
+
+    Product : product,
+  }
+}
+
+
+
+
+
+
+
+
 
 
 
