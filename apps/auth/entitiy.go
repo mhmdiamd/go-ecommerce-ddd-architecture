@@ -90,7 +90,7 @@ func (a AuthEntity) IsExists() bool {
 }
 
 func (a *AuthEntity) EncryptPassword(salt int) (err error) {
-  encryptedPass, err := bcrypt.GenerateFromPassword([]byte(a.Password), bcrypt.DefaultCost)
+  encryptedPass, err := bcrypt.GenerateFromPassword([]byte(a.Password), salt)
   if err != nil {
     return
   }

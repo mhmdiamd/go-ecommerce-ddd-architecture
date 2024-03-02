@@ -40,7 +40,6 @@ func (h handler) register(ctx *fiber.Ctx) error {
     return infrafiber.NewResponse(
       infrafiber.WithMessage("register fail"),
       infrafiber.WithError(myErr),
-      infrafiber.WithHttpCode(http.StatusBadRequest),
     ).Send(ctx)
   }
 

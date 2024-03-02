@@ -7,9 +7,6 @@ import (
 )
 
 func GenerateToken(id string, role string, secret string) (tokenString string, err error) {
-
-  fmt.Println(id)
-
   claims := jwt.MapClaims{
     "id": id,
     "role": role,
